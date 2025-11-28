@@ -208,3 +208,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.env
+
+question_3/

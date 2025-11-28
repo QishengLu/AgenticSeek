@@ -6,6 +6,7 @@ from sources.agents.code_agent import CoderAgent
 from sources.agents.file_agent import FileAgent
 from sources.agents.browser_agent import BrowserAgent
 from sources.agents.casual_agent import CasualAgent
+from sources.agents.rca_agent import RCAAgent
 from sources.text_to_speech import Speech
 from sources.tools.tools import Tools
 from sources.logger import Logger
@@ -23,10 +24,11 @@ class PlannerAgent(Agent):
         self.tools['json'].tag = "json"
         self.browser = browser
         self.agents = {
-            "coder": CoderAgent(name, "prompts/base/coder_agent.txt", provider, verbose=False),
-            "file": FileAgent(name, "prompts/base/file_agent.txt", provider, verbose=False),
-            "web": BrowserAgent(name, "prompts/base/browser_agent.txt", provider, verbose=False, browser=browser),
-            "casual": CasualAgent(name, "prompts/base/casual_agent.txt", provider, verbose=False)
+            # "coder": CoderAgent(name, "prompts/base/coder_agent.txt", provider, verbose=False),
+            # "file": FileAgent(name, "prompts/base/file_agent.txt", provider, verbose=False),
+            # "web": BrowserAgent(name, "prompts/base/browser_agent.txt", provider, verbose=False, browser=browser),
+            # "casual": CasualAgent(name, "prompts/base/casual_agent.txt", provider, verbose=False),
+            "rca": RCAAgent(name, "prompts/base/rca_agent.txt", provider, verbose=False)
         }
         self.role = "planification"
         self.type = "planner_agent"

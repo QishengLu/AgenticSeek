@@ -298,6 +298,10 @@ class AgentRouter:
             ("How’s it going today?", "talk"),
             ("Find recent X posts about AI advancements", "web"),
             ("Move all .jpg files from Downloads to a ‘Photos’ folder", "files"),
+            ("Analyze the parquet files in /logs/crash_data", "rca"),
+            ("Find the root cause of the failure in the logs", "rca"),
+            ("Check the parquet schema for the metrics file", "rca"),
+            ("Query the traces parquet file for slow requests", "rca"),
             ("Search online for the best laptops of 2025", "web"),
             ("What’s the funniest thing you’ve heard lately?", "talk"),
             ("Write a Ruby script to generate random numbers", "code"),
@@ -457,6 +461,14 @@ class AgentRouter:
         if complexity == "HIGH":
             pretty_print(f"Complex task detected, routing to planner agent.", color="info")
             return self.find_planner_agent()
+        
+        # Force RCA agent for RCA related queries if complexity is not HIGH or if router fails
+        if "parquet" in text.lower() or "root cause" in text.lower() or "rca" in text.lower() or "logs" in text.lower():
+             for agent in self.agents:
+                if agent.role == "rca":
+                    pretty_print(f"RCA task detected, routing to RCA agent.", color="info")
+                    return agent
+
         try:
             best_agent = self.router_vote(text, labels, log_confidence=False)
         except Exception as e:
