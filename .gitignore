@@ -102,6 +102,7 @@ db.sqlite3
 # Custom ignores
 deer_flow_rca.py
 output.json
+modification.md
 
 # Flask stuff:
 instance/
